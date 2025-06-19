@@ -46,8 +46,10 @@ class ZXing::FFI::Reader
       className = ptrs[0].read_string.sub(%r{^zxing},"ZXing")
       what = ptrs[1].read_string
 
-      ZXing::FFI::Library.free ptrs[1]
-      ZXing::FFI::Library.free ptr
+      # temporarily commented out due to 'free(): invalid pointer' crashes
+      # when it didn't recognize a QR code
+      # ZXing::FFI::Library.free ptrs[1]
+      # ZXing::FFI::Library.free ptr
 
       cls = className.split("::").inject(Object) { |parent, child| parent.const_get(child) }
 
